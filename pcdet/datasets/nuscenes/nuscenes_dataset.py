@@ -27,7 +27,8 @@ class NuScenesDataset(DatasetTemplate):
                          logger=logger)
         self.infos = []
         self.include_nuscenes_data(self.mode)
-        self.repeat = self.dataset_cfg.REPEAT
+        #self.repeat = self.dataset_cfg.REPEAT
+        self.repeat = 1
         if self.training and self.dataset_cfg.get('BALANCED_RESAMPLING',
                                                   False):
             self.infos = self.balanced_infos_resampling(self.infos)
@@ -288,15 +289,20 @@ class NuScenesDataset(DatasetTemplate):
 
                     gt_boxes_lidar[:, 2] -= gt_boxes_lidar[:, 5] / 2
                     anno['location'] = np.zeros((gt_boxes_lidar.shape[0], 3))
-                    anno['location'][:,
-                                     0] = -gt_boxes_lidar[:, 1]  # x = -y_lidar
-                    anno['location'][:,
-                                     1] = -gt_boxes_lidar[:, 2]  # y = -z_lidar
-                    anno['location'][:, 2] = gt_boxes_lidar[:,
-                                                            0]  # z = x_lidar
+                    # anno['location'][:,
+                    #                  0] = -gt_boxes_lidar[:, 1]  # x = -y_lidar
+                    # anno['location'][:,
+                    #                  1] = -gt_boxes_lidar[:, 2]  # y = -z_lidar
+                    # anno['location'][:, 2] = gt_boxes_lidar[:,
+                    #                                         0]  # z = x_lidar
+                    anno['location'][:,0] = gt_boxes_lidar[:, 0]  
+                    anno['location'][:,1] = gt_boxes_lidar[:, 1]  
+                    anno['location'][:,2] = gt_boxes_lidar[:, 2] 
                     dxdydz = gt_boxes_lidar[:, 3:6]
-                    anno['dimensions'] = dxdydz[:, [0, 2, 1]]  # lwh ==> lhw
-                    anno['rotation_y'] = -gt_boxes_lidar[:, 6] - np.pi / 2.0
+                    #anno['dimensions'] = dxdydz[:, [0, 2, 1]]  # lwh ==> lhw
+                    anno['dimensions'] = dxdydz[:, [0, 1, 2]]
+                    # anno['rotation_y'] = -gt_boxes_lidar[:, 6] - np.pi / 2.0
+                    anno['rotation_y'] = gt_boxes_lidar[:, 6]
                     anno['alpha'] = -np.arctan2(
                         -gt_boxes_lidar[:, 1],
                         gt_boxes_lidar[:, 0]) + anno['rotation_y']

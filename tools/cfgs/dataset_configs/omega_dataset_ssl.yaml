@@ -1,5 +1,5 @@
 DATASET: 'OmegaDatasetSSL'
-DATA_PATH: '../data/omega'
+DATA_PATH: '/home/changwon/detection_task/SSOD/kakao/SSDA/data/omega/'
 
 VERSION: 'v0.5-omega-trainval'
 MAX_SWEEPS: 1

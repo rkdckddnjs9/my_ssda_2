@@ -549,28 +549,32 @@ def fill_trainval_part_infos(data_path,
             dims = np.array([b.wlh for b in ref_boxes
                              ]).reshape(-1, 3)[:, [1, 0,
                                                    2]]  # wlh == > dxdydz (lwh)
+            # dims = np.array([b.wlh for b in ref_boxes
+            #                  ]).reshape(-1, 3)[:, [0, 2,
+            #                                        1]]  #st3d랑 같게 해봄
             velocity = np.array([b.velocity for b in ref_boxes]).reshape(-1, 3)
             rots = np.array([quaternion_yaw(b.orientation)
                              for b in ref_boxes]).reshape(-1, 1)
             names = np.array([b.name for b in ref_boxes])
             tokens = np.array([b.token for b in ref_boxes])
 
-            gt_boxes = np.concatenate([locs, dims, rots, velocity[:, :2]], axis=1)
-            # rot 90
-            gt_boxes = gt_boxes[:, [1, 0, 2, 3, 4, 5, 6]]
-            gt_boxes[:, 6] = -gt_boxes[:, 6] + np.pi
-            gt_boxes[:, 1] = -gt_boxes[:, 1]
+            # gt_boxes = np.concatenate([locs, dims, rots+np.pi/2, velocity[:, :2]], axis=1)
+            #gt_boxes = np.concatenate([locs, dims, rots-np.pi/2, velocity[:, :2]], axis=1) #st3d랑 같게 해봄
+            # # rot 90
+            # gt_boxes = gt_boxes[:, [1, 0, 2, 3, 4, 5, 6]]
+            # gt_boxes[:, 6] = -gt_boxes[:, 6] + np.pi
+            # gt_boxes[:, 1] = -gt_boxes[:, 1]
+            # gt_boxes[:, 6] = -gt_boxes[:, 6]
+
+            #st3d랑 같게 해봄
+            # gt_boxes = gt_boxes[:, [1, 0, 2, 3, 4, 5, 6]]
+            # gt_boxes[:, 1] = -gt_boxes[:, 1]
+            # gt_boxes[:, 6] = -gt_boxes[:, 6]
             ########
-            if False:
-                gt_boxes = np.concatenate([locs, dims, -rots + np.pi / 2], axis=1)
-                # rot 90
-                gt_boxes = gt_boxes[:, [1, 0, 2, 3, 4, 5, 6]]
-                gt_boxes[:, 6] = -gt_boxes[:, 6] + np.pi / 2
-                gt_boxes[:, 1] = -gt_boxes[:, 1]
-                gt_boxes[:, 6] = -gt_boxes[:, 6] + np.pi
-                ########
-            #  gt_boxes = np.concatenate([locs, dims, rots, velocity[:, :2]],
-                                      #  axis=1)
+            gt_boxes = np.concatenate([locs, dims, rots, velocity[:, :2]], axis=1)
+            gt_boxes = gt_boxes[:, [1, 0, 2, 3, 4, 5, 6]]
+            gt_boxes[:, 1] = -gt_boxes[:, 1]
+
 
             assert len(annotations) == len(gt_boxes) == len(velocity)
 
@@ -724,28 +728,33 @@ def fill_trainval_infos(data_path,
             dims = np.array([b.wlh for b in ref_boxes
                              ]).reshape(-1, 3)[:, [1, 0,
                                                    2]]  # wlh == > dxdydz (lwh)
+            # dims = np.array([b.wlh for b in ref_boxes
+            #                  ]).reshape(-1, 3)[:, [1, 0,
+            #                                        2]]  #st3d랑 같게해봄
             velocity = np.array([b.velocity for b in ref_boxes]).reshape(-1, 3)
             rots = np.array([quaternion_yaw(b.orientation)
                              for b in ref_boxes]).reshape(-1, 1)
             names = np.array([b.name for b in ref_boxes])
             tokens = np.array([b.token for b in ref_boxes])
 
-            gt_boxes = np.concatenate([locs, dims, rots, velocity[:, :2]], axis=1)
+            #gt_boxes = np.concatenate([locs, dims, rots+np.pi/2, velocity[:, :2]], axis=1)
+            #gt_boxes = np.concatenate([locs, dims, rots-np.pi/2, velocity[:, :2]], axis=1) #st3d랑 같게해봄
             # rot 90
-            gt_boxes = gt_boxes[:, [1, 0, 2, 3, 4, 5, 6]]
-            gt_boxes[:, 6] = -gt_boxes[:, 6] + np.pi
-            gt_boxes[:, 1] = -gt_boxes[:, 1]
+            # gt_boxes = gt_boxes[:, [1, 0, 2, 3, 4, 5, 6]]
+            # gt_boxes[:, 6] = -gt_boxes[:, 6] + np.pi
+            # gt_boxes[:, 1] = -gt_boxes[:, 1]
+            # gt_boxes[:, 6] = -gt_boxes[:, 6]
             ########
-            if False:
-                gt_boxes = np.concatenate([locs, dims, -rots + np.pi / 2], axis=1)
-                # rot 90
-                gt_boxes = gt_boxes[:, [1, 0, 2, 3, 4, 5, 6]]
-                gt_boxes[:, 6] = -gt_boxes[:, 6] + np.pi / 2
-                gt_boxes[:, 1] = -gt_boxes[:, 1]
-                gt_boxes[:, 6] = -gt_boxes[:, 6] + np.pi
-                ########
-            #  gt_boxes = np.concatenate([locs, dims, rots, velocity[:, :2]],
-                                      #  axis=1)
+
+            # st3d랑 같게해봄
+            # gt_boxes = gt_boxes[:, [1, 0, 2, 3, 4, 5, 6]]
+            # gt_boxes[:, 1] = -gt_boxes[:, 1]
+            # gt_boxes[:, 6] = -gt_boxes[:, 6]
+            ###########
+            gt_boxes = np.concatenate([locs, dims, rots, velocity[:, :2]], axis=1)
+            gt_boxes = gt_boxes[:, [1, 0, 2, 3, 4, 5, 6]]
+            gt_boxes[:, 1] = -gt_boxes[:, 1]
+            
 
             assert len(annotations) == len(gt_boxes) == len(velocity)
 

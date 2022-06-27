@@ -529,7 +529,8 @@ def create_nuscenes_info(version, data_path, save_path, max_sweeps=10):
 def create_part_dbinfos(version, data_path, save_path, max_sweeps=10, part_split='xxx'):
     from nuscenes.nuscenes import NuScenes
     from nuscenes.utils import splits
-    from . import nuscenes_utils
+    #from . import nuscenes_utils
+    from . import omega_utils
     data_path = data_path / version
     save_path = save_path / version
 

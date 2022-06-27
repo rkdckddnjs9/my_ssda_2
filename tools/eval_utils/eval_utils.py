@@ -64,6 +64,15 @@ def eval_one_epoch(cfg, model, dataloader, epoch_id, logger, dist_test=False, sa
             output_path=final_output_dir if save_to_file else None
         )
         det_annos += annos
+
+        # file = open("/home/changwon/detection_task/SSOD/kakao/SSDA/visualization_in_model/pred_box_eval.txt", "w")
+        # with open("/home/changwon/detection_task/SSOD/kakao/SSDA/visualization_in_model/pred_box_eval.txt", "w") as f:
+        #     for num in range(det_annos[i]['boxes_lidar'].shape[0]):
+        #         f.writelines("{},{},{},{},{},{},{},".format(
+        #             det_annos[i]['boxes_lidar'][num][3],det_annos[i]['boxes_lidar'][num][4],det_annos[i]['boxes_lidar'][num][5],
+        #             det_annos[i]['boxes_lidar'][num][6],
+        #             det_annos[i]['boxes_lidar'][num][0],det_annos[i]['boxes_lidar'][num][1],det_annos[i]['boxes_lidar'][num][2]))
+
         if cfg.LOCAL_RANK == 0:
             progress_bar.set_postfix(disp_dict)
             progress_bar.update()

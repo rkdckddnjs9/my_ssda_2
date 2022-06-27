@@ -28,7 +28,7 @@ def get_thresholds(scores: np.ndarray, num_gt, num_sample_pts=41):
 
 
 def clean_data(gt_anno, dt_anno, current_class, difficulty):
-    #  CLASS_NAMES = ['car', 'pedestrian', 'cyclist', 'van', 'person_sitting', 'truck']
+    #CLASS_NAMES = ['car', 'pedestrian', 'cyclist', 'van', 'person_sitting', 'truck']
     CLASS_NAMES = ['car', 'truck', 'bus', 'motorcycle', 'pedestrian']
     MIN_HEIGHT = [40, 25, 25]
     MAX_OCCLUSION = [0, 1, 2]
@@ -652,14 +652,14 @@ def get_official_eval_result(gt_annos, dt_annos, current_classes, PR_detail_dict
         3: 'Motorcycle',
         4: 'Pedestrian'
     }
-    #  class_to_name = {
-        #  0: 'Car',
-        #  1: 'Pedestrian',
-        #  2: 'Cyclist',
-        #  3: 'Van',
-        #  4: 'Person_sitting',
-        #  5: 'Truck'
-    #  }
+    #class_to_name = {
+    #    0: 'Car',
+    #    1: 'Pedestrian',
+    #    2: 'Cyclist',
+    #    3: 'Van',
+    #    4: 'Person_sitting',
+    #    5: 'Truck'
+    #}
     name_to_class = {v: n for n, v in class_to_name.items()}
     if not isinstance(current_classes, (list, tuple)):
         current_classes = [current_classes]

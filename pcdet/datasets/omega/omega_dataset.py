@@ -416,20 +416,24 @@ class OmegaDataset(NuScenesDataset):
                         gt_boxes_lidar = box_utils.boxes3d_kitti_fakelidar_to_lidar(
                             gt_boxes_lidar)
 
-                    gt_boxes_lidar[:, 2] -= gt_boxes_lidar[:, 5] / 2
+                    #gt_boxes_lidar[:, 2] -= gt_boxes_lidar[:, 5] / 2
                     anno['location'] = np.zeros((gt_boxes_lidar.shape[0], 3))
-                    anno['location'][:,
-                                     0] = -gt_boxes_lidar[:, 1]  # x = -y_lidar
-                    anno['location'][:,
-                                     1] = -gt_boxes_lidar[:, 2]  # y = -z_lidar
-                    anno['location'][:, 2] = gt_boxes_lidar[:,
-                                                            0]  # z = x_lidar
+                    # anno['location'][:,0] = -gt_boxes_lidar[:, 1]  # x = -y_lidar
+                    # anno['location'][:,1] = -gt_boxes_lidar[:, 2]  # y = -z_lidar
+                    # anno['location'][:, 2] = gt_boxes_lidar[:,0]  # z = x_lidar
+                    anno['location'][:,0] = gt_boxes_lidar[:, 0]  # x = -y_lidar
+                    anno['location'][:,1] = gt_boxes_lidar[:, 1]  # y = -z_lidar
+                    anno['location'][:, 2] = gt_boxes_lidar[:,2]  # z = x_lidar
                     dxdydz = gt_boxes_lidar[:, 3:6]
-                    anno['dimensions'] = dxdydz[:, [0, 2, 1]]  # lwh ==> lhw
-                    anno['rotation_y'] = -gt_boxes_lidar[:, 6] - np.pi / 2.0
+                    # anno['dimensions'] = dxdydz[:, [0, 2, 1]]  # lwh ==> lhw
+                    anno['dimensions'] = dxdydz[:, [0, 1, 2]]  # lwh ==> lhw
+                    # anno['rotation_y'] = -gt_boxes_lidar[:, 6] - np.pi / 2.0
+                    anno['rotation_y'] = gt_boxes_lidar[:, 6]
+
                     anno['alpha'] = -np.arctan2(
                         -gt_boxes_lidar[:, 1],
                         gt_boxes_lidar[:, 0]) + anno['rotation_y']
+                    #anno['alpha'] = gt_boxes_lidar[:, 6]
                 else:
                     anno['location'] = anno['dimensions'] = np.zeros((0, 3))
                     anno['rotation_y'] = anno['alpha'] = np.zeros(0)
@@ -528,6 +532,8 @@ class OmegaDataset(NuScenesDataset):
             info = self.infos[idx]
             points = self.get_lidar_with_sweeps(idx, max_sweeps=max_sweeps)
             gt_boxes = info['gt_boxes']
+            #gt_boxes[:,6] = -(gt_boxes[:, 6]+np.pi/2.0) #gt_sampling때문
+            #import pdb; pdb.set_trace()
             gt_names = info['gt_names']
 
             box_idxs_of_pts = roiaware_pool3d_utils.points_in_boxes_gpu(
@@ -535,6 +541,8 @@ class OmegaDataset(NuScenesDataset):
                                         0:3]).unsqueeze(dim=0).float().cuda(),
                 torch.from_numpy(gt_boxes[:, 0:7]).unsqueeze(
                     dim=0).float().cuda()).long().squeeze(dim=0).cpu().numpy()
+            
+            #gt_boxes[:,6] = -gt_boxes[:, 6]-np.pi/2.0
 
             for i in range(gt_boxes.shape[0]):
                 filename = '%s_%s_%d.bin' % (sample_idx, gt_names[i], i)
