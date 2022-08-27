@@ -10,8 +10,8 @@ DATA_CONFIG:
     PRED_VELOCITY: False
     BALANCED_RESAMPLING: True #False
     INFO_PATH: {
-        'train': [omega_infos_1sweeps_train_train_test.pkl],
-        'test': [omega_infos_1sweeps_val_train_test.pkl], #[omega_infos_1sweeps_train_train_test.pkl],
+        'train': [omega_infos_1sweeps_train_train_1.00_2.pkl],
+        'test': [omega_infos_1sweeps_val_train_1.00_2.pkl], #[omega_infos_1sweeps_train_train_test.pkl],
     }
     POINT_CLOUD_RANGE: [-54.0, -54.0, -5.0, 54.0, 54.0, 3.0]
 
@@ -21,7 +21,7 @@ DATA_CONFIG:
         AUG_CONFIG_LIST:
             - NAME: gt_sampling
               DB_INFO_PATH:
-                - omega_dbinfos_1sweeps_train_test.pkl
+                - omega_dbinfos_1sweeps_train_1.00_2.pkl
               PREPARE: {
                 filter_by_min_points: [
                     'car:20','truck:20', 'construction_vehicle:5', 'bus:20', 'trailer:5',

@@ -1,5 +1,5 @@
 DATASET: 'OmegaDataset'
-DATA_PATH: '/home/changwon/detection_task/SSOD/kakao/SSDA/data/omega/'
+DATA_PATH: './data/omega/'
 
 VERSION: 'v0.5-omega-trainval'
 MAX_SWEEPS: 1
@@ -13,8 +13,8 @@ DATA_SPLIT: {
 }
 
 INFO_PATH: {
-    'train': [omega_infos_1sweeps_train.pkl],
-    'test': [omega_infos_1sweeps_val.pkl],
+    'train': [omega_infos_1sweeps_train_1.00_2.pkl],
+    'test': [omega_infos_1sweeps_val_1.00_2.pkl],
 }
 
 POINT_CLOUD_RANGE: [-51.2, -51.2, -5.0, 51.2, 51.2, 3.0]
@@ -22,11 +22,11 @@ POINT_CLOUD_RANGE: [-51.2, -51.2, -5.0, 51.2, 51.2, 3.0]
 BALANCED_RESAMPLING: True 
 
 DATA_AUGMENTOR:
-    DISABLE_AUG_LIST: ['placeholder', 'gt_sampling']
+    DISABLE_AUG_LIST: ['placeholder'] #, 'gt_sampling']
     AUG_CONFIG_LIST:
         - NAME: gt_sampling
           DB_INFO_PATH:
-              - omega_dbinfos_1sweeps_withvelo.pkl
+              - omega_dbinfos_1sweeps_train_1.00_2.pkl
           PREPARE: {
              filter_by_min_points: [
                  'car:5','truck:5', 'bus:5',

@@ -364,6 +364,508 @@ class KittiDatasetSSL(DatasetTemplate):
         eval_gt_annos = [copy.deepcopy(info['annos']) for info in self.kitti_infos]
         ap_result_str, ap_dict = kitti_eval.get_official_eval_result(eval_gt_annos, eval_det_annos, class_names)
 
+        # # distance-wise eval
+        # gt_keys = list(eval_gt_annos[0].keys())
+        # det_keys = list(eval_det_annos[0].keys())
+
+        # gt_00_09 = []
+        # gt_10_19 = []
+        # gt_20_29 = []
+        # gt_30_39 = []
+        # gt_40_49 = []
+        # gt_50_59 = []
+        # gt_60_69 = []
+        # gt_70_all = []
+        # det_00_09 = []
+        # det_10_19 = []
+        # det_20_29 = []
+        # det_30_39 = []
+        # det_40_49 = []
+        # det_50_59 = []
+        # det_60_69 = []
+        # det_70_all = []
+
+
+
+        # for num in range(len(eval_gt_annos)):
+        #     data = eval_gt_annos[num]
+        #     data_00_09 = {}
+        #     data_10_19 = {}
+        #     data_20_29 = {}
+        #     data_30_39 = {}
+        #     data_40_49 = {}
+        #     data_50_59 = {}
+        #     data_60_69 = {}
+        #     data_70_all = {}
+        #     dist = self.distance(data['location'])
+            
+        #     mask_00_09 = dist<10
+        #     mask_10_19 = (dist>=10)*(dist<20)
+        #     mask_20_29 = (dist>=20)*(dist<30)
+        #     mask_30_39 = (dist>=30)*(dist<40)
+        #     mask_40_49 = (dist>=40)*(dist<50)
+        #     mask_50_59 = (dist>=50)*(dist<60)
+        #     mask_60_69 = (dist>=60)*(dist<70)
+        #     mask_70_all = (dist>=70)
+
+        #     if True in mask_00_09:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_00_09[key] = data[key][mask_00_09]
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_00_09[key] = data[key][mask_00_09[:len(data[key])]]
+        #             else:
+        #                 data_00_09[key] = data[key][mask_00_09]
+        #     else:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_00_09[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_00_09[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_00_09[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_00_09[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_00_09[key] = np.array([]).reshape(-1,3)
+        #             else:
+        #                 data_00_09[key] = np.array([])
+            
+        #     if True in mask_10_19:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_10_19[key] = data[key][mask_10_19]
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_10_19[key] = data[key][mask_10_19[:len(data[key])]]
+        #             else:
+        #                 data_10_19[key] = data[key][mask_10_19]
+        #     else:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_10_19[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_10_19[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_10_19[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_10_19[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_10_19[key] = np.array([]).reshape(-1,3)
+        #             else:
+        #                 data_10_19[key] = np.array([])
+            
+        #     if True in mask_20_29:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_20_29[key] = data[key][mask_20_29]
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_20_29[key] = data[key][mask_20_29[:len(data[key])]]
+        #             else:
+        #                 data_20_29[key] = data[key][mask_20_29]
+        #     else:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_20_29[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_20_29[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_20_29[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_20_29[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_20_29[key] = np.array([]).reshape(-1,3)
+        #             else:
+        #                 data_20_29[key] = np.array([])
+            
+        #     if True in mask_30_39:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_30_39[key] = data[key][mask_30_39]
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_30_39[key] = data[key][mask_30_39[:len(data[key])]]
+        #             else:
+        #                 data_30_39[key] = data[key][mask_30_39]
+        #     else:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_30_39[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_30_39[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_30_39[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_30_39[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_30_39[key] = np.array([]).reshape(-1,3)
+        #             else:
+        #                 data_30_39[key] = np.array([])
+
+        #     if True in mask_40_49:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_40_49[key] = data[key][mask_40_49]
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_40_49[key] = data[key][mask_40_49[:len(data[key])]]
+        #             else:
+        #                 data_40_49[key] = data[key][mask_40_49]
+        #     else:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_40_49[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_40_49[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_40_49[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_40_49[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_40_49[key] = np.array([]).reshape(-1,3)
+        #             else:
+        #                 data_40_49[key] = np.array([])
+
+        #     if True in mask_50_59:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_50_59[key] = data[key][mask_50_59]
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_50_59[key] = data[key][mask_50_59[:len(data[key])]]
+        #             else:
+        #                 data_50_59[key] = data[key][mask_50_59]
+        #     else:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_50_59[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_50_59[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_50_59[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_50_59[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_50_59[key] = np.array([]).reshape(-1,3)
+        #             else:
+        #                 data_50_59[key] = np.array([])
+
+        #     if True in mask_60_69:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_60_69[key] = data[key][mask_60_69]
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_60_69[key] = data[key][mask_60_69[:len(data[key])]]
+        #             else:
+        #                 data_60_69[key] = data[key][mask_60_69]
+        #     else:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_60_69[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_60_69[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_60_69[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_60_69[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_60_69[key] = np.array([]).reshape(-1,3)
+        #             else:
+        #                 data_60_69[key] = np.array([])
+            
+        #     if True in mask_70_all:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_70_all[key] = data[key][mask_70_all]
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_70_all[key] = data[key][mask_70_all[:len(data[key])]]
+        #             else:
+        #                 data_70_all[key] = data[key][mask_70_all]
+        #     else:
+        #         for key in gt_keys:
+        #             if key == 'name':
+        #                 data_70_all[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_70_all[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_70_all[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_70_all[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_70_all[key] = np.array([]).reshape(-1,3)
+        #             else:
+        #                 data_70_all[key] = np.array([])
+            
+        #     gt_00_09.append(data_00_09)
+        #     gt_10_19.append(data_10_19)
+        #     gt_20_29.append(data_20_29)
+        #     gt_30_39.append(data_30_39)
+        #     gt_40_49.append(data_40_49)
+        #     gt_50_59.append(data_50_59)
+        #     gt_60_69.append(data_60_69)
+        #     gt_70_all.append(data_70_all)
+            
+        # for num in range(len(eval_det_annos)):
+        #     data = eval_det_annos[num]
+        #     data_00_09 = {}
+        #     data_10_19 = {}
+        #     data_20_29 = {}
+        #     data_30_39 = {}
+        #     data_40_49 = {}
+        #     data_50_59 = {}
+        #     data_60_69 = {}
+        #     data_70_all = {}
+        #     dist = self.distance(data['location'])
+            
+        #     mask_00_09 = dist<10
+        #     mask_10_19 = (dist>=10)*(dist<20)
+        #     mask_20_29 = (dist>=20)*(dist<30)
+        #     mask_30_39 = (dist>=30)*(dist<40)
+        #     mask_40_49 = (dist>=40)*(dist<50)
+        #     mask_50_59 = (dist>=50)*(dist<60)
+        #     mask_60_69 = (dist>=60)*(dist<70)
+        #     mask_70_all = (dist>=70)
+
+        #     if True in mask_00_09:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_00_09[key] = data[key][mask_00_09]
+        #             elif key == 'frame_id':
+        #                 data_00_09[key] = data[key]
+        #             else:
+        #                 data_00_09[key] = data[key][mask_00_09]
+        #     else:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_00_09[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_00_09[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_00_09[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_00_09[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_00_09[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'frame_id':
+        #                 data_00_09[key] = data[key]
+        #             else:
+        #                 data_00_09[key] = np.array([])
+            
+        #     if True in mask_10_19:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_10_19[key] = data[key][mask_10_19]
+        #             elif key == 'frame_id':
+        #                 data_10_19[key] = data[key]
+        #             else:
+        #                 data_10_19[key] = data[key][mask_10_19]
+        #     else:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_10_19[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_10_19[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_10_19[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_10_19[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_10_19[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'frame_id':
+        #                 data_10_19[key] = data[key]
+        #             else:
+        #                 data_10_19[key] = np.array([])
+            
+        #     if True in mask_20_29:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_20_29[key] = data[key][mask_20_29]
+        #             elif key == 'frame_id':
+        #                 data_20_29[key] = data[key]
+        #             else:
+        #                 data_20_29[key] = data[key][mask_20_29]
+        #     else:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_20_29[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_20_29[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_20_29[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_20_29[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_20_29[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'frame_id':
+        #                 data_20_29[key] = data[key]
+        #             else:
+        #                 data_20_29[key] = np.array([])
+            
+        #     if True in mask_30_39:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_30_39[key] = data[key][mask_30_39]
+        #             elif key == 'frame_id':
+        #                 data_30_39[key] = data[key]
+        #             else:
+        #                 data_30_39[key] = data[key][mask_30_39]
+        #     else:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_30_39[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_30_39[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_30_39[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_30_39[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_30_39[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'frame_id':
+        #                 data_30_39[key] = data[key]
+        #             else:
+        #                 data_30_39[key] = np.array([])
+
+        #     if True in mask_40_49:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_40_49[key] = data[key][mask_40_49]
+        #             elif key == 'frame_id':
+        #                 data_40_49[key] = data[key]
+        #             else:
+        #                 data_40_49[key] = data[key][mask_40_49]
+        #     else:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_40_49[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_40_49[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_40_49[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_40_49[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_40_49[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'frame_id':
+        #                 data_40_49[key] = data[key]
+        #             else:
+        #                 data_40_49[key] = np.array([])
+
+        #     if True in mask_50_59:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_50_59[key] = data[key][mask_50_59]
+        #             elif key == 'frame_id':
+        #                 data_50_59[key] = data[key]
+        #             else:
+        #                 data_50_59[key] = data[key][mask_50_59]
+        #     else:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_50_59[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_50_59[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_50_59[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_50_59[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_50_59[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'frame_id':
+        #                 data_50_59[key] = data[key]
+        #             else:
+        #                 data_50_59[key] = np.array([])
+
+        #     if True in mask_60_69:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_60_69[key] = data[key][mask_60_69]
+        #             elif key == 'frame_id':
+        #                 data_60_69[key] = data[key]
+        #             else:
+        #                 data_60_69[key] = data[key][mask_60_69]
+        #     else:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_60_69[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_60_69[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_60_69[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_60_69[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_60_69[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'frame_id':
+        #                 data_60_69[key] = data[key]
+        #             else:
+        #                 data_60_69[key] = np.array([])
+            
+        #     if True in mask_70_all:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_70_all[key] = data[key][mask_70_all]
+        #             elif key == 'frame_id':
+        #                 data_70_all[key] = data[key]
+        #             else:
+        #                 data_70_all[key] = data[key][mask_70_all]
+        #     else:
+        #         for key in det_keys:
+        #             if key == 'name':
+        #                 data_70_all[key] = np.array([], dtype='<U10')
+        #             elif key == 'bbox':
+        #                 data_70_all[key] = np.array([]).reshape(-1,4)
+        #             elif key == 'gt_boxes_lidar':
+        #                 data_70_all[key] = np.array([]).reshape(-1,7)
+        #             elif key == 'dimensions':
+        #                 data_70_all[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'location':
+        #                 data_70_all[key] = np.array([]).reshape(-1,3)
+        #             elif key == 'frame_id':
+        #                 data_70_all[key] = data[key]
+        #             else:
+        #                 data_70_all[key] = np.array([])
+            
+        #     det_00_09.append(data_00_09)
+        #     det_10_19.append(data_10_19)
+        #     det_20_29.append(data_20_29)
+        #     det_30_39.append(data_30_39)
+        #     det_40_49.append(data_40_49)
+        #     det_50_59.append(data_50_59)
+        #     det_60_69.append(data_60_69)
+        #     det_70_all.append(data_70_all)
+
+        # ap_result_str_00_09, ap_dict_00_09 = kitti_eval.get_official_eval_result(gt_00_09, det_00_09, class_names)
+        # ap_result_str_10_19, ap_dict_10_19 = kitti_eval.get_official_eval_result(gt_10_19, det_10_19, class_names)
+        # ap_result_str_20_29, ap_dict_20_29 = kitti_eval.get_official_eval_result(gt_20_29, det_20_29, class_names)
+        # ap_result_str_30_39, ap_dict_30_39 = kitti_eval.get_official_eval_result(gt_30_39, det_30_39, class_names)
+        # ap_result_str_40_49, ap_dict_40_49 = kitti_eval.get_official_eval_result(gt_40_49, det_40_49, class_names)
+        # ap_result_str_50_59, ap_dict_50_59 = kitti_eval.get_official_eval_result(gt_50_59, det_50_59, class_names)
+        # ap_result_str_60_69, ap_dict_60_69 = kitti_eval.get_official_eval_result(gt_60_69, det_60_69, class_names)
+        # ap_result_str_70_all, ap_dict_70_all = kitti_eval.get_official_eval_result(gt_70_all, det_70_all, class_names)
+        
+        # path = "/home/changwon/detection_task/SSOD/kakao/my_ssda/test/default/ssl_0.02_1"
+        # file = open(path + "00_09.txt", "w")
+        # with open(path + "00_09.txt", "w") as file:
+        #     file.writelines(ap_result_str_00_09)
+        # file = open(path + "10_19.txt", "w")
+        # with open(path + "10_19.txt", "w") as file:
+        #     file.writelines(ap_result_str_10_19)
+        # file = open(path + "20_29.txt", "w")
+        # with open(path + "20_29.txt", "w") as file:
+        #     file.writelines(ap_result_str_20_29)
+        # file = open(path + "30_39.txt", "w")
+        # with open(path + "30_39.txt", "w") as file:
+        #     file.writelines(ap_result_str_30_39)
+        # file = open(path + "40_49.txt", "w")
+        # with open(path + "40_49.txt", "w") as file:
+        #     file.writelines(ap_result_str_40_49)
+        # file = open(path + "50_59.txt", "w")
+        # with open(path + "50_59.txt", "w") as file:
+        #     file.writelines(ap_result_str_50_59)
+        # file = open(path + "60_69.txt", "w")
+        # with open(path + "60_69.txt", "w") as file:
+        #     file.writelines(ap_result_str_60_69)
+        # file = open(path + "70_all.txt", "w")
+        # with open(path + "70_all.txt", "w") as file:
+        #     file.writelines(ap_result_str_70_all)
+
         return ap_result_str, ap_dict
 
     def __len__(self):

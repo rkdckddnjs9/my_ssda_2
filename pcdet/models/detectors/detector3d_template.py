@@ -127,7 +127,8 @@ class Detector3DTemplate(nn.Module):
             grid_size=model_info_dict['grid_size'],
             point_cloud_range=model_info_dict['point_cloud_range'],
             predict_boxes_when_training=self.model_cfg.get('ROI_HEAD', False),
-            voxel_size=self.model_cfg.DENSE_HEAD.VOXEL_SIZE
+            voxel_size=model_info_dict.get('voxel_size', False)
+            #voxel_size=self.model_cfg.DENSE_HEAD.VOXEL_SIZE
         )
         model_info_dict['module_list'].append(dense_head_module)
         return dense_head_module, model_info_dict

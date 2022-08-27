@@ -1,0 +1,136 @@
+// {
+//     // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+//     // 기존 특성에 대한 설명을 보려면 가리킵니다.
+//     // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "name": "Python: Current File",
+//             "type": "python",
+//             "request": "launch",
+//             "program": "tools/pretrain.py",
+//             "args": ["--cfg_file", "tools/cfgs/kitti_models/pv_rcnn_ssl_60.yaml",
+//                     "--split", "train_0.02_1",
+//                     "--extra_tag", "split_0.02_1_test",
+//                     "--ckpt_save_interval", "4",
+//                     "--repeat", "5",
+//                     "--dbinfos", "kitti_dbinfos_train_0.02_1_74.pkl"],
+// 			"env": {"CUDA_VISIBLE_DEVICES":"0"},
+//             "console": "integratedTerminal"
+//         }
+//     ]
+// }
+
+// {
+//     // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+//     // 기존 특성에 대한 설명을 보려면 가리킵니다.
+//     // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "name": "Python: Current File",
+//             "type": "python",
+//             "request": "launch",
+//             "program": "tools/test.py",
+//             "args": ["--cfg_file", "./tools/cfgs/kitti_models/pv_rcnn_ssl_60.yaml",
+//                      "--ckpt_dir", "/home/changwon/detection_task/SSOD/kakao/my_ssda/test/default/ckpt/",
+//                      "--eval_all",
+//                     ],
+// 			"env": {"CUDA_VISIBLE_DEVICES":"0"},
+//             "console": "integratedTerminal"
+//         }
+//     ]
+// }
+
+// {
+//     // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+//     // 기존 특성에 대한 설명을 보려면 가리킵니다.
+//     // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "name": "Python: Current File",
+//             "type": "python",
+//             "request": "launch",
+//             "program": "tools/test.py",
+//             "args": ["--cfg_file", "./tools/cfgs/omega_models/centerpoint.yaml",
+//                      "--ckpt_dir", "/home/changwon/data/SSOD/centerpoint_sever_21/sever16/split_1.00_2/ckpt/",
+//                      "--eval_all",
+//                     ],
+// 			"env": {"CUDA_VISIBLE_DEVICES":"0"},
+//             "console": "integratedTerminal"
+//         }
+//     ]
+// }
+
+// {
+//     // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+//     // 기존 특성에 대한 설명을 보려면 가리킵니다.
+//     // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "name": "Python: Current File",
+//             "type": "python",
+//             "request": "launch",
+//             "program": "tools/pretrain.py",
+//             "args": ["--cfg_file", "tools/cfgs/omega_models/centerpoint.yaml",
+//                     "--split", "train_1.00_2",
+//                     "--extra_tag", "center_pp_test",
+//                     "--ckpt_save_interval", "4",
+//                     "--repeat", "5",
+//                     "--dbinfos", "omega_dbinfos_1sweeps_train_1.00_2.pkl",
+//                     "--pretrained_model", "/home/changwon/detection_task/SSOD/kakao/my_ssda/pretrain/cbgs_pp_centerpoint_nds6070.pth"],
+// 			"env": {"CUDA_VISIBLE_DEVICES":"0"},
+//             "console": "integratedTerminal"
+//         }
+//     ]
+// }
+
+// {
+//     // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+//     // 기존 특성에 대한 설명을 보려면 가리킵니다.
+//     // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "name": "Python: Current File",
+//             "type": "python",
+//             "request": "launch",
+//             "program": "tools/pretrain.py",
+//             "args": ["--cfg_file", "tools/cfgs/omega_models/second_iou.yaml",
+//                     "--split", "train_1.00_2",
+//                     "--extra_tag", "second_iou_test",
+//                     "--ckpt_save_interval", "4",
+//                     "--repeat", "5",
+//                     "--dbinfos", "omega_dbinfos_1sweeps_train_1.00_2.pkl",
+//                     "--pretrained_model", "/home/changwon/detection_task/SSOD/kakao/my_ssda/pretrain/cbgs_pp_centerpoint_nds6070.pth"],
+// 			"env": {"CUDA_VISIBLE_DEVICES":"0"},
+//             "console": "integratedTerminal"
+//         }
+//     ]
+// }
+
+{
+    // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+    // 기존 특성에 대한 설명을 보려면 가리킵니다.
+    // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "tools/pretrain.py",
+            "args": ["--cfg_file", "tools/cfgs/kitti_models/second_iou.yaml",
+                    "--split", "train_0.02_1",
+                    "--extra_tag", "second_iou_test",
+                    "--ckpt_save_interval", "4",
+                    "--repeat", "10",
+                    "--dbinfos", "kitti_dbinfos_train_0.02_1_74.pkl",
+                    ],
+			"env": {"CUDA_VISIBLE_DEVICES":"0"},
+            "console": "integratedTerminal"
+        }
+    ]
+}
